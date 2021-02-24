@@ -42,6 +42,7 @@ def to_usd(my_price):
 #print(products)
 total_price = 0 
 selected_ids = []
+import datetime
 
 while True: 
     selected_id = input("Please input a product identifier:")
@@ -57,6 +58,17 @@ while True:
 #print(type(matching_product))
 
 #print(selected_ids)
+print("---------------------------------")
+print("CASSIE'S GROCERY EXTRAVAGANZA")
+print("---------------------------------")
+print("Please visit our website at:")
+print("WWW.CASSIES-GROCERY-EXTRAVANGANZA.COM")
+print("---------------------------------")
+print("Contact us at:")
+print("+1-678-999-8212")
+print("---------------------------------")
+# DATE / TIME HERE 
+print("---------------------------------")
 
 for selected_id in selected_ids:
     matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
@@ -66,12 +78,16 @@ for selected_id in selected_ids:
 
 print("TOTAL PRICE: " + str(total_price)) 
 
-#A grocery store name of your choice
-#A grocery store phone number and/or website URL and/or address of choice
+print("---------------------------------")
+print("Thanks for shopping at Cassie's Grocery Extravaganza!")
+print("We hope to see you soon!")
+print("---------------------------------")
+
+
 #The date and time of the beginning of the checkout process, formatted in a human-friendly way (e.g. 2020-02-07 03:54 PM)
 #The name and price of each shopping cart item, price being formatted as US dollars and cents (e.g. $3.50, etc.)
 #The total cost of all shopping cart items (i.e. the "subtotal"), formatted as US dollars and cents (e.g. $19.47), calculated as the sum of their prices
 #The amount of tax owed (e.g. $1.70), calculated by multiplying the total cost by a New York City sales tax rate of 8.75% (for the purposes of this project, groceries are not exempt from sales tax)
 #The total amount owed, formatted as US dollars and cents (e.g. $21.17), calculated by adding together the amount of tax owed plus the total cost of all shopping cart items
-#A friendly message thanking the customer and/or encouraging the customer to shop again
+
 
