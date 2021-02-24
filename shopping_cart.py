@@ -61,22 +61,45 @@ while True:
 print("---------------------------------")
 print("CASSIE'S GROCERY EXTRAVAGANZA")
 print("---------------------------------")
+
+# EMAIL 
+
 print("Please visit our website at:")
 print("WWW.CASSIES-GROCERY-EXTRAVANGANZA.COM")
 print("---------------------------------")
+
+#PHONE NUMBER 
+
 print("Contact us at:")
 print("+1-678-999-8212")
 print("---------------------------------")
+
 # DATE / TIME HERE 
+
+import datetime #https://www.w3resource.com/python-exercises/python-basic-exercise-3.php
+now = datetime.datetime.now()
+print("Current Date & Time: ")
+print(now.strftime("%Y-%m-%d %H:%M:%S"))
+
 print("---------------------------------")
 
 for selected_id in selected_ids:
     matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
     matching_product = matching_products[0]
     total_price = total_price + matching_product["price"]
-    print("SELECTED PRODUCT: " + str(matching_product["name"]) + " " + str(matching_product["price"])) 
+    print("SELECTED PRODUCT: " + str(matching_product["name"]) + " " + to_usd(matching_product["price"])) 
+    
+# PRICES & TAX 
 
-print("TOTAL PRICE: " + str(total_price)) 
+tax = total_price * 0.0875 
+final_total = total_price + tax
+
+
+print("---------------------------------")
+print("SUBTOTAL: " + to_usd(total_price)) 
+print("TAX: " + to_usd(tax))
+print("TOTAL: " + to_usd(final_total)) 
+
 
 print("---------------------------------")
 print("Thanks for shopping at Cassie's Grocery Extravaganza!")
@@ -84,10 +107,7 @@ print("We hope to see you soon!")
 print("---------------------------------")
 
 
-#The date and time of the beginning of the checkout process, formatted in a human-friendly way (e.g. 2020-02-07 03:54 PM)
-#The name and price of each shopping cart item, price being formatted as US dollars and cents (e.g. $3.50, etc.)
-#The total cost of all shopping cart items (i.e. the "subtotal"), formatted as US dollars and cents (e.g. $19.47), calculated as the sum of their prices
-#The amount of tax owed (e.g. $1.70), calculated by multiplying the total cost by a New York City sales tax rate of 8.75% (for the purposes of this project, groceries are not exempt from sales tax)
-#The total amount owed, formatted as US dollars and cents (e.g. $21.17), calculated by adding together the amount of tax owed plus the total cost of all shopping cart items
+
+
 
 
