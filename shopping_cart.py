@@ -98,8 +98,8 @@ from sendgrid.helpers.mail import Mail
 
 load_dotenv()
 
-taxrate= os.getenv(tax_rate, default = 0.0875)
-tax= total_price * taxrate
+tax_rate= os.getenv("tax_rate", default = 0.0875)
+tax= total_price * float(tax_rate)
 final_total = total_price + tax
 
 
