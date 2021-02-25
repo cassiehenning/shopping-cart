@@ -140,7 +140,9 @@ if email == "y":
     #html_list_item = "<li>You ordered: Product 2</li>"
     #html_list_items += "<li>You ordered: Product 3</li>"
 
+
     html_content = f"""
+    <body style="background-color:powderblue;">
     <h3>Hello this is your receipt!</h3>
     <p>Date: {now.strftime('%A, %B %d, %Y')}</p>
     <p>Subtotal: {to_usd(total_price)}</p>
@@ -165,7 +167,7 @@ if email == "y":
 
     except Exception as err:
         print(type(err))
-    print(err)
+        print(err)
 else:
     print("Have a good day.")
 
