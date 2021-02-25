@@ -45,7 +45,7 @@ selected_ids = []
 import datetime
 
 while True: 
-    selected_id = input("Please input a product identifier:")
+    selected_id = input("Please input a product identifier (type DONE when you're done):")
     if selected_id == "DONE": 
         break
     else:   
@@ -79,7 +79,7 @@ print("---------------------------------")
 import datetime #https://www.w3resource.com/python-exercises/python-basic-exercise-3.php
 now = datetime.datetime.now()
 print("Current Date & Time: ")
-print(now.strftime("%Y-%m-%d %H:%M:%S"))
+print(now.strftime("%Y-%m-%d %I:%M %p"))
 
 print("---------------------------------")
 
