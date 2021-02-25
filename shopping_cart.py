@@ -91,7 +91,15 @@ for selected_id in selected_ids:
     
 # PRICES & TAX 
 
-tax = total_price * 0.0875 
+import os
+from dotenv import load_dotenv 
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
+load_dotenv()
+
+taxrate= os.getenv(tax_rate, default = 0.0875)
+tax= total_price * taxrate
 final_total = total_price + tax
 
 
@@ -105,6 +113,54 @@ print("---------------------------------")
 print("Thanks for shopping at Cassie's Grocery Extravaganza!")
 print("We hope to see you soon!")
 print("---------------------------------")
+
+#send email receipt
+
+#TRY THIS IN EMAIL_RECIEPT
+
+import os
+from dotenv import load_dotenv 
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
+load_dotenv()
+
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env var called 'SENDGRID_API_KEY'")
+SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
+
+client = SendGridAPIClient(SENDGRID_API_KEY) #> <class 'sendgrid.sendgrid.SendGridAPIClient>
+print("CLIENT:", type(client))
+
+subject = "Your Receipt from Cassie's Grocery Extravaganza"
+
+#html_list_item = "<li>You ordered: Product 2</li>"
+#html_list_items += "<li>You ordered: Product 3</li>"
+
+html_content = f"""
+<h3>Hello this is your receipt!</h3>
+<p>Date: {now.strftime('%A, %B %d, %Y')}</p>
+<p>Subtotal: {to_usd(total_price)}</p>
+<p>Tax: {to_usd(tax)}</p>
+<p>Total: {to_usd(final_total)}</p>
+<p>Have a good day!<p>
+"""
+print(html_content)
+
+# FYI: we'll need to use our verified SENDER_ADDRESS as the `from_email` param
+# ... but we can customize the `to_emails` param to send to other addresses
+message = Mail(from_email=SENDER_ADDRESS, to_emails=SENDER_ADDRESS, subject=subject, html_content=html_content)
+
+try:
+    response = client.send(message)
+
+    print("RESPONSE:", type(response)) #> <class 'python_http_client.client.Response'>
+    print(response.status_code) #> 202 indicates SUCCESS
+    print(response.body)
+    print(response.headers)
+
+except Exception as err:
+    print(type(err))
+    print(err)
 
 
 
