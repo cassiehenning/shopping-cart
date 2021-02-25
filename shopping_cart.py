@@ -118,49 +118,57 @@ print("---------------------------------")
 
 #TRY THIS IN EMAIL_RECIEPT
 
-import os
-from dotenv import load_dotenv 
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+email = input ("Email receipt? y/n: ")
 
-load_dotenv()
+if email == "y":
 
-SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env var called 'SENDGRID_API_KEY'")
-SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
+    import os
+    from dotenv import load_dotenv 
+    from sendgrid import SendGridAPIClient
+    from sendgrid.helpers.mail import Mail
 
-client = SendGridAPIClient(SENDGRID_API_KEY) #> <class 'sendgrid.sendgrid.SendGridAPIClient>
-print("CLIENT:", type(client))
+    load_dotenv()
 
-subject = "Your Receipt from Cassie's Grocery Extravaganza"
+    SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env var called 'SENDGRID_API_KEY'")
+    SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
 
-#html_list_item = "<li>You ordered: Product 2</li>"
-#html_list_items += "<li>You ordered: Product 3</li>"
+    client = SendGridAPIClient(SENDGRID_API_KEY) #> <class 'sendgrid.sendgrid.SendGridAPIClient>
+    print("CLIENT:", type(client))
 
-html_content = f"""
-<h3>Hello this is your receipt!</h3>
-<p>Date: {now.strftime('%A, %B %d, %Y')}</p>
-<p>Subtotal: {to_usd(total_price)}</p>
-<p>Tax: {to_usd(tax)}</p>
-<p>Total: {to_usd(final_total)}</p>
-<p>Have a good day!<p>
-"""
-print(html_content)
+    subject = "Your Receipt from Cassie's Grocery Extravaganza"
 
-# FYI: we'll need to use our verified SENDER_ADDRESS as the `from_email` param
-# ... but we can customize the `to_emails` param to send to other addresses
-message = Mail(from_email=SENDER_ADDRESS, to_emails=SENDER_ADDRESS, subject=subject, html_content=html_content)
+    #html_list_item = "<li>You ordered: Product 2</li>"
+    #html_list_items += "<li>You ordered: Product 3</li>"
 
-try:
-    response = client.send(message)
+    html_content = f"""
+    <h3>Hello this is your receipt!</h3>
+    <p>Date: {now.strftime('%A, %B %d, %Y')}</p>
+    <p>Subtotal: {to_usd(total_price)}</p>
+    <p>Tax: {to_usd(tax)}</p>
+    <p>Total: {to_usd(final_total)}</p>
+    <p>Have a good day!<p>
+    <p>Thanks for shopping at CASSIE'S GROCERY EXTRAVAGANZA<p>
+    """
+    print(html_content)
 
-    print("RESPONSE:", type(response)) #> <class 'python_http_client.client.Response'>
-    print(response.status_code) #> 202 indicates SUCCESS
-    print(response.body)
-    print(response.headers)
+    # FYI: we'll need to use our verified SENDER_ADDRESS as the `from_email` param
+    # ... but we can customize the `to_emails` param to send to other addresses
+    message = Mail(from_email=SENDER_ADDRESS, to_emails=SENDER_ADDRESS, subject=subject, html_content=html_content)
 
-except Exception as err:
-    print(type(err))
+    try:
+        response = client.send(message)
+
+        print("RESPONSE:", type(response)) #> <class 'python_http_client.client.Response'>
+        print(response.status_code) #> 202 indicates SUCCESS
+        print(response.body)
+        print(response.headers)
+
+    except Exception as err:
+        print(type(err))
     print(err)
+else:
+    print("Have a good day.")
+
 
 
 
